@@ -1,164 +1,111 @@
-# ![Laravel Example App](logo.png)
+# Laravel starter
 
-[![Build Status](https://img.shields.io/travis/gothinkster/laravel-realworld-example-app/master.svg)](https://travis-ci.org/gothinkster/laravel-realworld-example-app) [![Gitter](https://img.shields.io/gitter/room/realworld-dev/laravel.svg)](https://gitter.im/realworld-dev/laravel) [![GitHub stars](https://img.shields.io/github/stars/gothinkster/laravel-realworld-example-app.svg)](https://github.com/gothinkster/laravel-realworld-example-app/stargazers) [![GitHub license](https://img.shields.io/github/license/gothinkster/laravel-realworld-example-app.svg)](https://raw.githubusercontent.com/gothinkster/laravel-realworld-example-app/master/LICENSE)
+This is a blank [Laravel](https://laravel.com) project that will connect to any prismic.io repository. It uses the prismic.io PHP development kit, and provides a few helpers to integrate with a Laravel website.
 
-> ### Example Laravel codebase containing real world examples (CRUD, auth, advanced patterns and more) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
+## Getting started
 
-This repo is functionality complete — PRs and issues welcome!
+### Launch the starter project
 
-----------
+*(Assuming you've [installed Laravel](https://laravel.com/docs/5.5/installation))*
 
-# Getting started
+Fork this repository, then clone your fork, and run this in your newly created directory:
 
-## Installation
+``` bash
+composer install
+```
 
-Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/5.4/installation#installation)
+Next you need to make a copy of the `.env.example` file and rename it to `.env` inside your project root.
 
+Run the following command to generate your app key:
 
-Clone the repository
+```
+php artisan key:generate
+```
 
-    git clone git@github.com:gothinkster/laravel-realworld-example-app.git
+Then start your server:
 
-Switch to the repo folder
+```
+php artisan serve
+```
 
-    cd laravel-realworld-example-app
+Your Laravel starter project is now up and running! 
 
-Install all the dependencies using composer
+### Configure the starter project
 
-    composer install
+Edit the `config/prismic.php` prismic configuration file to get the application connected to the correct repository:
 
-Copy the example env file and make the required configuration changes in the .env file
+```
+'url' => 'https://your-repo-name.prismic.io/api/v2',
+```
 
-    cp .env.example .env
+You may have to restart your server.
 
-Generate a new application key
+### Create your routes and pages
 
-    php artisan key:generate
+When the project is first launched and viewed, it will by default display a help page. Here you will find some documentation to help you get started with your Laravel project.
 
-Generate a new JWT authentication secret key
+It includes an example that shows how to create a route and query a document of the custom type "page". It then shows how to integrate the content into the Laravel templates. 
 
-    php artisan jwt:generate
+Check it out to get a better understanding of how you would create your own routes and templates for your project. You can also explore our documentation to learn more about how to [query the API](https://prismic.io/docs/php/query-the-api/how-to-query-the-api) and how to integrate content fields like [Rich Text](https://prismic.io/docs/php/templating/rich-text), [Images](https://prismic.io/docs/php/templating/image), and more.
 
-Run the database migrations (**Set the database connection in .env before migrating**)
+## Deploying your Laravel application
 
-    php artisan migrate
+Once you've created your website, an easy way to deploy your Laravel application is to use [Heroku](http://www.heroku.com). Just follow these few simple steps once you have successfully [signed up](https://id.heroku.com/signup/www-header) and [installed the Heroku toolbelt](https://toolbelt.heroku.com/):
 
-Start the local development server
+Create a new Heroku application
 
-    php artisan serve
+```
+$ heroku create
+```
 
-You can now access the server at http://localhost:8000
+Initialize a new Git repository:
 
-**TL;DR command list**
+```
+$ git init
+$ heroku git:remote -a your-heroku-app-name
+```
 
-    git clone git@github.com:gothinkster/laravel-realworld-example-app.git
-    cd laravel-realworld-example-app
-    composer install
-    cp .env.example .env
-    php artisan key:generate
-    php artisan jwt:generate 
-    
-**Make sure you set the correct database connection information before running the migrations** [Environment variables](#environment-variables)
+Commit your code to the Git repository if you haven't already:
 
-    php artisan migrate
-    php artisan serve
+```
+$ git add .
+$ git commit -am "make it better"
+```
 
-## Database seeding
+Set a Laravel encryption key:
 
-**Populate the database with seed data with relationships which includes users, articles, comments, tags, favorites and follows. This can help you to quickly start testing the api or couple a frontend and start using it with ready content.**
+```
+$ heroku config:set APP_KEY=$(php artisan --no-ansi key:generate --show)
+```
 
-Open the DummyDataSeeder and set the property values as per your requirement
+Push to Heroku:
 
-    database/seeds/DummyDataSeeder.php
+```
+$ git push heroku master
+```
 
-Run the database seeder and you're done
+You can now browse your application online:
 
-    php artisan db:seed
+```
+$ heroku open
+```
 
-***Note*** : It's recommended to have a clean database before seeding. You can refresh your migrations at any point to clean the database by running the following command
+You can read more about launching your project with Heroku here in their [Laravel & Heroku guide](https://devcenter.heroku.com/articles/getting-started-with-laravel).
 
-    php artisan migrate:refresh
+## Learn more about prismic.io
 
-## API Specification
+If you are looking for more resources to learn more about prismic.io, you can find out [how to get started with prismic.io](https://prismic.io/quickstart#?lang=php) and learn more by exploring [our full documentation](https://prismic.io/docs/php/getting-started/with-the-php-starter-kit).
 
-This application adheres to the api specifications set by the [Thinkster](https://github.com/gothinkster) team. This helps mix and match any backend with any other frontend without conflicts.
+### Understand the PHP development kit
 
-> [Full API Spec](https://github.com/gothinkster/realworld/tree/master/api)
+You'll find more information about how to use the development kit included in this starter project, by reading its README file and exploring its project files on GitHub [prismic/php-kit](https://github.com/prismicio/php-kit).
 
-More information regarding the project can be found here https://github.com/gothinkster/realworld
+## Licence
 
-----------
+This software is licensed under the Apache 2 license, quoted below.
 
-# Code overview
+Copyright 2018 Prismic.io (https://prismic.io).
 
-## Dependencies
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this project except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
 
-- [jwt-auth](https://github.com/tymondesigns/jwt-auth) - For authentication using JSON Web Tokens
-- [laravel-cors](https://github.com/barryvdh/laravel-cors) - For handling Cross-Origin Resource Sharing (CORS)
-
-## Folders
-
-- `app` - Contains all the Eloquent models
-- `app/Http/Controllers/Api` - Contains all the api controllers
-- `app/Http/Middleware` - Contains the JWT auth middleware
-- `app/Http/Requests/Api` - Contains all the api form requests
-- `app/RealWorld/Favorite` - Contains the files implementing the favorite feature
-- `app/RealWorld/Filters` - Contains the query filters used for filtering api requests
-- `app/RealWorld/Follow` - Contains the files implementing the follow feature
-- `app/RealWorld/Paginate` - Contains the pagination class used to paginate the result
-- `app/RealWorld/Slug` - Contains the files implementing slugs to articles
-- `app/RealWorld/Transformers` - Contains all the data transformers
-- `config` - Contains all the application configuration files
-- `database/factories` - Contains the model factory for all the models
-- `database/migrations` - Contains all the database migrations
-- `database/seeds` - Contains the database seeder
-- `routes` - Contains all the api routes defined in api.php file
-- `tests` - Contains all the application tests
-- `tests/Feature/Api` - Contains all the api tests
-
-## Environment variables
-
-- `.env` - Environment variables can be set in this file
-
-***Note*** : You can quickly set the database information and other variables in this file and have the application fully working.
-
-----------
-
-# Testing API
-
-Run the laravel development server
-
-    php artisan serve
-
-The api can now be accessed at
-
-    http://localhost:8000/api
-
-Request headers
-
-| **Required** 	| **Key**              	| **Value**            	|
-|----------	|------------------	|------------------	|
-| Yes      	| Content-Type     	| application/json 	|
-| Yes      	| X-Requested-With 	| XMLHttpRequest   	|
-| Optional 	| Authorization    	| Token {JWT}      	|
-
-Refer the [api specification](#api-specification) for more info.
-
-----------
- 
-# Authentication
- 
-This applications uses JSON Web Token (JWT) to handle authentication. The token is passed with each request using the `Authorization` header with `Token` scheme. The JWT authentication middleware handles the validation and authentication of the token. Please check the following sources to learn more about JWT.
- 
-- https://jwt.io/introduction/
-- https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html
-
-----------
-
-# Cross-Origin Resource Sharing (CORS)
- 
-This applications has CORS enabled by default on all API endpoints. The default configuration allows requests from `http://localhost:3000` and `http://localhost:4200` to help speed up your frontend testing. The CORS allowed origins can be changed by setting them in the config file. Please check the following sources to learn more about CORS.
- 
-- https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
-- https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
-- https://www.w3.org/TR/cors
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
